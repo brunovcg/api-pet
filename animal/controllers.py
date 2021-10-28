@@ -18,6 +18,7 @@ def get_one_animal(animal_ID):
         response_group = serialized_group.data
 
         response_animal['group'] = response_group
+        del response_animal['group_id']
 
         characteristics = AnimalCharacteristic.objects.filter(animal_id_id=animal_ID)
 

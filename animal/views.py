@@ -71,20 +71,19 @@ class AnimalView(APIView):
 
 class AnimalFilterView(APIView):
     def get(self, request, animal_ID=''):
-
+        
         try:
-            animal = Animal.objects.get(id=animal_ID)
-            animal.delete()
+            Animal.objects.get(id=animal_ID)
+            response = get_one_animal(animal_ID)
 
         except ObjectDoesNotExist:
             return Response({'error': 'ID not found'}, status=status.HTTP_404_NOT_FOUND)
        
-        response = get_one_animal(animal_ID)
         return Response(response, status=status.HTTP_200_OK)
 
 
     def delete(self, request, animal_ID=''):
-        
+
         try:
             animal = Animal.objects.get(id=animal_ID)
             animal.delete()
