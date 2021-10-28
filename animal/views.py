@@ -6,7 +6,7 @@ from group.models import Group
 from characteristic.models import Characteristic
 from group.serializers import GroupSerializer
 from characteristic.serializers import CharacteristicSerializer
-from . serializers import AnimalSerializer
+from .serializers import AnimalSerializer
 from django.core.exceptions import ObjectDoesNotExist
 
 class AnimalView(APIView):
