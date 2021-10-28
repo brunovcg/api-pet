@@ -6,7 +6,7 @@ from group.models import Group
 from characteristic.models import Characteristic
 from group.serializers import GroupSerializer
 from characteristic.serializers import CharacteristicSerializer
-from .serializers import AnimalCharacteristicSerializer, AnimalSerializer
+from django.core.exceptions import ObjectDoesNotExist
 from .controllers import get_one_animal
 
 
@@ -48,14 +48,17 @@ class AnimalView(APIView):
         new_animal = Animal.objects.create(**animal_data)
 
         for charact in characteristics: 
+
+            try:
+                charact_add = Characteristic.objects.get(name=charact['name'])
+
+            except Exception:
             
-            charact_add = Characteristic.objects.filter(name=charact['name'])
-            serialized_charact = CharacteristicSerializer(charact_add, many=True)
+                charact_search = Characteristic.objects.filter(name=charact['name'])
+                serialized_charact = CharacteristicSerializer(charact_search, many=True)                
 
-            charact_add = Characteristic.objects.get(name=charact['name'])
-
-            if len(serialized_charact.data) == 0:
-                charact_add = Characteristic.objects.create(**charact)
+                if len(serialized_charact.data) == 0:
+                    charact_add = Characteristic.objects.create(**charact)
 
             new_table = {'animal_id' : new_animal, 'characteristic_id' : charact_add}
 
@@ -68,14 +71,25 @@ class AnimalView(APIView):
 
 class AnimalFilterView(APIView):
     def get(self, request, animal_ID=''):
+
+        try:
+            animal = Animal.objects.get(id=animal_ID)
+            animal.delete()
+
+        except ObjectDoesNotExist:
+            return Response({'error': 'ID not found'}, status=status.HTTP_404_NOT_FOUND)
        
         response = get_one_animal(animal_ID)
         return Response(response, status=status.HTTP_200_OK)
 
 
-    def delete(self, request, animal_id=''):
+    def delete(self, request, animal_ID=''):
         
-        animal = Animal.objects.get(id=animal_id)
-        animal.delete()
+        try:
+            animal = Animal.objects.get(id=animal_ID)
+            animal.delete()
+
+        except ObjectDoesNotExist:
+            return Response({'error': 'ID not found'}, status=status.HTTP_404_NOT_FOUND)
 
         return Response('', status=status.HTTP_204_NO_CONTENT)

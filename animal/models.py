@@ -7,7 +7,7 @@ class Animal(models.Model):
     sex = models.CharField(max_length=255)
     group = models.ForeignKey('group.Group', on_delete=models.CASCADE, related_name='animal' )
     characteristics = models.ManyToManyField('characteristic.Characteristic', related_name='animal', through='animal.AnimalCharacteristic')
-
+    
 
 class AnimalCharacteristic(models.Model):
     animal_id = models.ForeignKey('animal.Animal', on_delete=models.CASCADE)

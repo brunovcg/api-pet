@@ -32,6 +32,7 @@ def get_one_animal(animal_ID):
             serialized_charact = CharacteristicSerializer(charact)
             response_charact = serialized_charact.data['name']
             del item['animal_id_id']
+            item['id'] = item['characteristic_id_id']
             del item['characteristic_id_id']
 
             item['name'] = response_charact
