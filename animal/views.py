@@ -6,19 +6,17 @@ from group.models import Group
 from characteristic.models import Characteristic
 from group.serializers import GroupSerializer
 from characteristic.serializers import CharacteristicSerializer
+from .serializers import AnimalSerializer
 from django.core.exceptions import ObjectDoesNotExist
-from .controllers import get_one_animal
-
 
 class AnimalView(APIView):
     def get(self, request):
 
         all_info = Animal.objects.all()
-        all_animals_id = [item.__dict__['id'] for item in all_info]
-        response  = [get_one_animal(animal) for animal in all_animals_id]       
 
-        return Response(response, status=status.HTTP_200_OK)
+        serialized = AnimalSerializer(all_info, many=True)
 
+        return Response(serialized.data, status=status.HTTP_200_OK)
 
     def post(self, request):
 
@@ -64,22 +62,22 @@ class AnimalView(APIView):
 
             AnimalCharacteristic.objects.create(**new_table)
 
-        response = get_one_animal(new_animal.id)                    
+        serialized = AnimalSerializer(new_animal)               
 
-        return Response(response, status=status.HTTP_201_CREATED)
+        return Response(serialized.data, status=status.HTTP_201_CREATED)
 
 
 class AnimalFilterView(APIView):
     def get(self, request, animal_ID=''):
         
         try:
-            Animal.objects.get(id=animal_ID)
-            response = get_one_animal(animal_ID)
+            animal = Animal.objects.get(id=animal_ID)
+            serialized = AnimalSerializer(animal)
 
         except ObjectDoesNotExist:
             return Response({'error': 'ID not found'}, status=status.HTTP_404_NOT_FOUND)
        
-        return Response(response, status=status.HTTP_200_OK)
+        return Response(serialized.data, status=status.HTTP_200_OK)
 
 
     def delete(self, request, animal_ID=''):
