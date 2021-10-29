@@ -170,7 +170,7 @@ Não há body
 ### Response HTTP 204 HTTP_204_NO_CONTENT
 
 
-### Response HTTP 404 HTTP_204_NO_CONTENT
+### Response HTTP 404 NOT_FOUND
 
 Caso o ID não exista
 
