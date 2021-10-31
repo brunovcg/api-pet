@@ -37,7 +37,7 @@ test_get_two_animals_alike (test_api.TestAnimalView) ... ok
 test_list_animals (test_api.TestAnimalView) ... ok
 
 ----------------------------------------------------------------------
-Ran 7 tests in 0.124s
+Ran 7 tests in 0.087s
 
 OK
 Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...

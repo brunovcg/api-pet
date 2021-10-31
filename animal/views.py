@@ -4,8 +4,6 @@ from rest_framework import status
 from .models import Animal
 from group.models import Group
 from characteristic.models import Characteristic
-from group.serializers import GroupSerializer
-from characteristic.serializers import CharacteristicSerializer
 from .serializers import AnimalSerializer
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -20,44 +18,21 @@ class AnimalView(APIView):
 
     def post(self, request):
 
-        info = request.data 
-        group = info['group']
-        characteristics = info['characteristics']
-        animal = info
+        name = request.data['name']
+        age = request.data['age']
+        weight = request.data['weight']
+        sex = request.data['sex']
+        group = request.data['group']
+        characteristics = request.data['characteristics']
 
-        del animal['group']
-        del animal['characteristics']
-  
-        try:          
-            group_add = Group.objects.filter(name=group['name'])
-            serialized_group = GroupSerializer(group_add, many=True)
-            group_id = serialized_group.data[0]['id']          
+        add_group = Group.objects.get_or_create(**group)
         
-        except Exception:
-            Group.objects.create(**group)
-            group_add = Group.objects.filter(name=group['name'])
-            serialized_group = GroupSerializer(group_add, many=True)
-            group_id = serialized_group.data[0]['id']
-     
-        animal_data = {**animal}
+        new_animal = Animal.objects.create(name=name, age= age, weight = weight, sex=sex, group=add_group[0])
 
-        animal_data['group'] = Group.objects.get(id=group_id)
-        
-        new_animal = Animal.objects.create(**animal_data)
+        for charact in characteristics:    
 
-        for charact in characteristics: 
-
-            try:
-                charact_add = Characteristic.objects.get(name=charact['name'])
-
-            except Exception:
-            
-                charact_search = Characteristic.objects.filter(name=charact['name'])
-                serialized_charact = CharacteristicSerializer(charact_search, many=True)                
-
-                if len(serialized_charact.data) == 0:
-                    charact_add = Characteristic.objects.create(**charact)
-
+            add_charact = Characteristic.objects.get_or_create(name=charact['name'])
+            new_animal.characteristics.add(add_charact[0])
 
         serialized = AnimalSerializer(new_animal)               
 

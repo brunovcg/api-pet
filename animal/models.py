@@ -8,7 +8,3 @@ class Animal(models.Model):
     group = models.ForeignKey('group.Group', on_delete=models.CASCADE, related_name='animal' )
     characteristics = models.ManyToManyField('characteristic.Characteristic', related_name='animal')
     
-
-# class AnimalCharacteristic(models.Model):
-#     animal_id = models.ForeignKey('animal.Animal', on_delete=models.CASCADE)
-#     characteristic_id = models.ForeignKey('characteristic.Characteristic', on_delete=models.CASCADE)
