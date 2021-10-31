@@ -1,45 +1,52 @@
-# Iniciando um projeto DJANGO
+# KENZIE-PET
 
-## Linguagens necessárias:
+Descrição: Uma API para classificar animais por características e em grupos.
+
+## Como Rodar?
+
+### Linguagens necessárias:
 - Tenha o Python instalado na sua máquina
+- O banco de dados utilizado é o sqlite3, já instalado pelo django, não se preocupe com isso
 
-##  Instalando
-Após baixar esta aplicação usando o GIT CLONE:
+###  Instalando
+1 - Após baixar esta aplicação usando o GIT CLONE do seguinte repositrório:
 
-1 - Inicie um ambiente virtual com o comando no terminal:
+$ git clone git@gitlab.com:brunovcg/q4-s1-e1-kenzie-pet.git
+
+2 - Entre na pasta:
+
+$ cd /Q4-S1-E1\ /-\ /Kenzie\ /Pet
+
+3 - Inicie um ambiente virtual com o comando no terminal:
 
 $ python -m venv venv
 
-2 - Inicialize o ambiente virtual
+4 - Inicialize o ambiente virtual
 
 $ source venv/bin/activate
 
-3 - Instale as dependências do projeto com o comando:
+5 - Instale as dependências do projeto com o comando:
 
 $ pip install -r requirements.txt
 
-(esse comando inicializará o django e o djangorestframework)
+(esse comando instalará o django e o djangorestframework)
 
-4 - Faça as migrations do banco:
-
-$ python manage.py makemigrations
-
-5 - Commit as migrations:
+6 - Rodar as migrations:
 
 $ ./manage.py makemigrations
 
-6 - Inicialize o servidor:
+7 - Inicialize o servidor:
 
 $ python manage.py runserver
 
 
-# Rotas
+## Utilização das Rotas
 
-## Animals
+### Animals
 
-### POST api/animals/ - Cadastrando um Animal
+#### POST api/animals/ - Cadastrando um Animal
 
-#### Exemplo de Request:
+##### Exemplo de Request:
 ```json
 {
     "name": "Bidu",
@@ -60,7 +67,7 @@ $ python manage.py runserver
     ]
   }
 ```
-#### Response - HTTP 201 CREATED
+##### Response - HTTP 201 CREATED
 
 ```json
   {
@@ -88,13 +95,13 @@ $ python manage.py runserver
     
 ```
 
-### GET api/animals/ - Fazendo a leitura de todos os animais cadastrados:
+#### GET api/animals/ - Fazendo a leitura de todos os animais cadastrados:
 
-#### Exemplo de Request:
+##### Exemplo de Request:
 
 Não contem Body
 
-#### Response HTTP 200 OK
+##### Response HTTP 200 OK
 
 ```json
 
@@ -147,17 +154,17 @@ Não contem Body
 
 ```
 
-### GET api/animals/<int:animal_id>/ - Filtrando animais:
+#### GET api/animals/<int:animal_id>/ - Filtrando animais:
 
 Passa-se o id do animal como param
 
 
-#### Exemplo de Request:
+##### Exemplo de Request:
 ex: api/animals/1/
 
 Não contem Body
 
-#### Response HTTP 200 OK
+##### Response HTTP 200 OK
 
 ```json
 
@@ -186,31 +193,25 @@ Não contem Body
 
 ```
 
-### Response HTTP 404 NOT_FOUND
+#### Response HTTP 404 NOT_FOUND
 
 Quando o ID não é encontrado
 
 
-### DELETE api/animals/<int:animal_id>/ - deletando animais:
+#### DELETE api/animals/<int:animal_id>/ - deletando animais:
 
 Passa-se como param o ID do animal a ser deletado
 
 
 
-#### Exemplo de Request:
+##### Exemplo de Request:
 ex: api/animals/1/
 
 Não há body
 
-### Response HTTP 204 HTTP_204_NO_CONTENT
+#### Response HTTP 204 HTTP_204_NO_CONTENT
 
 
-### Response HTTP 404 NOT_FOUND
+#### Response HTTP 404 NOT_FOUND
 
 Caso o ID não exista
-
-
-
-
-
-

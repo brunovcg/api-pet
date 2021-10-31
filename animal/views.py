@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .models import Animal, AnimalCharacteristic
+from .models import Animal
 from group.models import Group
 from characteristic.models import Characteristic
 from group.serializers import GroupSerializer
@@ -58,9 +58,6 @@ class AnimalView(APIView):
                 if len(serialized_charact.data) == 0:
                     charact_add = Characteristic.objects.create(**charact)
 
-            new_table = {'animal_id' : new_animal, 'characteristic_id' : charact_add}
-
-            AnimalCharacteristic.objects.create(**new_table)
 
         serialized = AnimalSerializer(new_animal)               
 
