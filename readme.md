@@ -1,3 +1,38 @@
+# Iniciando um projeto DJANGO
+
+## Linguagens necessárias:
+- Tenha o Python instalado na sua máquina
+
+##  Instalando
+Após baixar esta aplicação usando o GIT CLONE:
+
+1 - Inicie um ambiente virtual com o comando no terminal:
+
+$ python -m venv venv
+
+2 - Inicialize o ambiente virtual
+
+$ source venv/bin/activate
+
+3 - Instale as dependências do projeto com o comando:
+
+$ pip install -r requirements.txt
+
+(esse comando inicializará o django e o djangorestframework)
+
+4 - Faça as migrations do banco:
+
+$ python manage.py makemigrations
+
+5 - Commit as migrations:
+
+$ ./manage.py makemigrations
+
+6 - Inicialize o servidor:
+
+$ python manage.py runserver
+
+
 # Rotas
 
 ## Animals
