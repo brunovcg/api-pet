@@ -39,6 +39,9 @@ $ ./manage.py makemigrations
 
 $ python manage.py runserver
 
+## Erros e exceções:
+Essa aplicação trata os erros de id inválido, conforme demonstrado em cada rota, erros 404 Not Found são mostrados com a mensagem de erro: {"error": "ID not found"}
+
 
 ## Utilização das Rotas
 
@@ -94,6 +97,7 @@ $ python manage.py runserver
   }
     
 ```
+
 
 #### GET api/animals/ - Fazendo a leitura de todos os animais cadastrados:
 
@@ -154,6 +158,18 @@ Não contem Body
 
 ```
 
+#### Response HTTP 404 NOT_FOUND
+
+Quando o ID não é encontrado
+
+```json
+{
+  "error": "ID not found"
+  }
+```
+
+
+
 #### GET api/animals/<int:animal_id>/ - Filtrando animais:
 
 Passa-se o id do animal como param
@@ -197,6 +213,11 @@ Não contem Body
 
 Quando o ID não é encontrado
 
+```json
+{
+  "error": "ID not found"
+}
+```
 
 #### DELETE api/animals/<int:animal_id>/ - deletando animais:
 
@@ -215,3 +236,8 @@ Não há body
 #### Response HTTP 404 NOT_FOUND
 
 Caso o ID não exista
+
+```json
+{
+  "error": "ID not found"
+}
